@@ -2,12 +2,24 @@ package ru.netology.manager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ru.netology.domain.Poster;
+import ru.netology.repository.PosterRepository;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class PosterManagerTest {
-    private PosterManager manager = new PosterManager();
+
+    @Mock
+    private PosterRepository repository;
+
+    @InjectMocks
+    PosterManager posterManager;
     private Poster first = new Poster(1,1,"first",0,1);
     private Poster second = new Poster(2,2,"second",0,1);
     private Poster third = new Poster(3,3,"third",0,1);
@@ -20,34 +32,53 @@ public class PosterManagerTest {
 
     @BeforeEach
     public void setUp() {
-        manager.add(first);
-        manager.add(second);
-        manager.add(third);
-        manager.add(fourth);
-        manager.add(fifth);
-        manager.add(sixth);
-        manager.add(seventh);
-        manager.add(eighth);
-        manager.add(ninth);
+        posterManager.add(first);
+        posterManager.add(second);
+        posterManager.add(third);
+        posterManager.add(fourth);
+        posterManager.add(fifth);
+        posterManager.add(sixth);
+        posterManager.add(seventh);
+        posterManager.add(eighth);
+        posterManager.add(ninth);
     }
 
     @Test
     public void shouldRemoveIfExists() {
         int id = 1;
-        manager.removeById(id);
+        Poster[] returned = new Poster[] {second,third,fourth,fifth,sixth,seventh,eighth,ninth};
+        doReturn(returned).when(repository).findAll();
+        doNothing().when(repository).removeById(id);
+        posterManager.removeById(id);
 
-        Poster[] actual = manager.getAll();
+        Poster[] actual = posterManager.getAll();
         Poster[] expected = new Poster[] {ninth,eighth,seventh,sixth,fifth,fourth,third,second};
 
         assertArrayEquals(expected,actual);
+        verify(repository).removeById(id);
+    }
+
+    @Test
+    public void shouldNotRemoveIfNotExists() {
+        int id = 10;
+        Poster[] returned = new Poster[] {first,second,third,fourth,fifth,sixth,seventh,eighth,ninth};
+        doReturn(returned).when(repository).findAll();
+        doNothing().when(repository).removeById(id);
+        posterManager.removeById(id);
+
+        Poster[] actual = posterManager.getAll();
+        Poster[] expected = new Poster[] {ninth,eighth,seventh,sixth,fifth,fourth,third,second,first};
+
+        assertArrayEquals(expected,actual);
+        verify(repository).removeById(id);
     }
 
     @Test
     public void addFilm() {
         Poster tenth = new Poster(10,10,"tenth",1,1);
-        manager.add(tenth);
+        posterManager.add(tenth);
 
-        Poster[] actual = manager.getAll();
+        Poster[] actual = posterManager.getAll();
         Poster[] expected = new Poster[] {tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second,first};
 
         assertArrayEquals(expected,actual);
@@ -55,24 +86,10 @@ public class PosterManagerTest {
 
     @Test
     public void addFilm5() {
-        PosterManager manager = new PosterManager(5);
+        PosterManager posterManager = new PosterManager(5);
 
-        Poster[] actual = manager.getAll();
+        Poster[] actual = posterManager.getAll();
         Poster[] expected = new Poster[] {ninth,eighth,seventh,sixth,fifth};
-
-        assertArrayEquals(expected,actual);
-    }
-
-    @Test
-    public void getAllFilmFalse() {
-        Poster tenth = new Poster(10,10,"tenth",1,1);
-        Poster eleventh = new Poster(11,11,"eleventh",1,1);
-
-        manager.add(tenth);
-        manager.add(eleventh);
-
-        Poster[] actual = manager.getLimit();
-        Poster[] expected = new Poster[] {eleventh,tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second};
 
         assertArrayEquals(expected,actual);
     }
