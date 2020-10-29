@@ -13,9 +13,8 @@ public class PosterManager {
     }
     public PosterManager(int countFilms) {
         if (countFilms < 0) {
-            return;
-        }
-        this.countFilms = countFilms;
+            this.countFilms = 0;
+        } else this.countFilms = countFilms;
     }
 
     public void add(Poster film) {
@@ -28,16 +27,6 @@ public class PosterManager {
         int lastIndex = tmp.length - 1;
         tmp[lastIndex] = film;
         films = tmp;
-    }
-
-    public Poster[] getAll() {
-        Poster[] result = new Poster[films.length];
-//        перебираем массив, но кладем результаты в обратном порядке
-        for (int i = 0; i < result.length; i++) {
-            int index = films.length - i - 1;
-            result[i] = films[index];
-        }
-        return result;
     }
 
     public void removeById(int id) {
@@ -55,9 +44,9 @@ public class PosterManager {
     }
 
     public Poster[] getLimit() {
-        int countFilms = films.length;
-        Poster[] limit = new Poster[countFilms];
-        for (int i = 0; i < countFilms; i++) {
+        int finalCountFilms = Math.min(films.length,countFilms);
+        Poster[] limit = new Poster[finalCountFilms];
+        for (int i = 0; i < finalCountFilms; i++) {
             int index = films.length - i - 1;
             limit[i] = films[index];
         }
