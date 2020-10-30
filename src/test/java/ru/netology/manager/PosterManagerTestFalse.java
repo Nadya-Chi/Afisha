@@ -11,9 +11,10 @@ import ru.netology.repository.PosterRepository;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
-public class PosterManagerTest {
+public class PosterManagerTestFalse {
 
     @Mock
     private PosterRepository repository;
@@ -30,6 +31,7 @@ public class PosterManagerTest {
     private Poster eighth = new Poster(8,8,"eighth",0,1);
     private Poster ninth = new Poster(9,9,"ninth",0,1);
     private Poster tenth = new Poster(10,10,"tenth",0,1);
+    private Poster eleventh = new Poster(11,11,"eleventh",0,1);
 
     @BeforeEach
     public void setUp() {
@@ -43,40 +45,11 @@ public class PosterManagerTest {
         posterManager.add(eighth);
         posterManager.add(ninth);
         posterManager.add(tenth);
+        posterManager.add(eleventh);
     }
 
     @Test
-    public void shouldRemoveIfExists() {
-        int id = 1;
-        Poster[] returned = new Poster[] {second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth};
-        doReturn(returned).when(repository).findAll();
-        doNothing().when(repository).removeById(id);
-        posterManager.removeById(id);
-
-        Poster[] actual = posterManager.getLimit();
-        Poster[] expected = new Poster[] {tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second};
-
-        assertArrayEquals(expected,actual);
-        verify(repository).removeById(id);
-    }
-
-    @Test
-    public void shouldNotRemoveIfNotExists() {
-        int id = 11;
-        Poster[] returned = new Poster[] {first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth};
-        doReturn(returned).when(repository).findAll();
-        doNothing().when(repository).removeById(id);
-        posterManager.removeById(id);
-
-        Poster[] actual = posterManager.getLimit();
-        Poster[] expected = new Poster[] {tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second,first};
-
-        assertArrayEquals(expected,actual);
-        verify(repository).removeById(id);
-    }
-
-    @Test
-    public void addFilm() {
+    public void getAllFilmFalse() {
         Poster[] returned = new Poster[] {first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth};
         doReturn(returned).when(repository).findAll();
 
@@ -87,20 +60,20 @@ public class PosterManagerTest {
     }
 
     @Test
-    public void addFilm5() {
-        PosterManager posterManager = new PosterManager(5,repository);
-        Poster[] returned = new Poster[] {sixth,seventh,eighth,ninth,tenth};
+    public void getAllFilmFalse20() {
+        PosterManager posterManager = new PosterManager(20,repository);
+        Poster[] returned = new Poster[] {first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth};
         doReturn(returned).when(repository).findAll();
 
         Poster[] actual = posterManager.getLimit();
-        Poster[] expected = new Poster[] {tenth,ninth,eighth,seventh,sixth};
+        Poster[] expected = new Poster[] {tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second,first};
 
         assertArrayEquals(expected,actual);
     }
 
     @Test
-    public void addFilm0() {
-        PosterManager posterManager = new PosterManager(0,repository);
+    public void getAllFilmFalse5() {
+        PosterManager posterManager = new PosterManager(-5,repository);
         Poster[] returned = new Poster[] {};
         doReturn(returned).when(repository).findAll();
 
@@ -109,5 +82,4 @@ public class PosterManagerTest {
 
         assertArrayEquals(expected,actual);
     }
-
 }

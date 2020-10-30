@@ -43,4 +43,5 @@ public class PosterRepository {
     public void removeAll() {
         films = new Poster[0];
     }
+
 }
