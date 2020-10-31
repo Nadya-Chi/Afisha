@@ -1,6 +1,10 @@
 package ru.netology.repository;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ru.netology.domain.Poster;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -8,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 public class RepositoryTest {
+
     PosterRepository posterRepository = new PosterRepository();
     Poster first = new Poster(1,1,"first",0,1);
     Poster second = new Poster(2,2,"second",0,1);
@@ -19,6 +24,7 @@ public class RepositoryTest {
     Poster eighth = new Poster(8,8,"eighth",0,1);
     Poster ninth = new Poster(9,9,"ninth",0,1);
 
+    @BeforeEach
     private  void setUp() {
         posterRepository.save(first);
         posterRepository.save(second);
@@ -33,7 +39,6 @@ public class RepositoryTest {
 
     @Test
     public void save() {
-        setUp();
         Poster[] actual = posterRepository.findAll();
         Poster[] expected = new Poster[] {first,second,third,fourth,fifth,sixth,seventh,eighth,ninth};
 
@@ -42,8 +47,7 @@ public class RepositoryTest {
 
     @Test
     public void findAll() {
-        setUp();
-        posterRepository.findAll();
+
         Poster[] actual = posterRepository.findAll();
         Poster[] expected = new Poster[] {first,second,third,fourth,fifth,sixth,seventh,eighth,ninth};
 
@@ -52,7 +56,6 @@ public class RepositoryTest {
 
     @Test
     public void findById() {
-        setUp();
         int id = 8;
 
         Poster actual = posterRepository.findById(id);
@@ -61,8 +64,16 @@ public class RepositoryTest {
     }
 
     @Test
+    public void findByIdFalse() {
+        int id = 0;
+
+        Poster actual = posterRepository.findById(id);
+
+        assertEquals(null,actual);
+    }
+
+    @Test
     public void removeById() {
-        setUp();
         int id = 9;
         posterRepository.removeById(id);
         Poster[] actual = posterRepository.findAll();
@@ -73,8 +84,7 @@ public class RepositoryTest {
 
     @Test
     public void removeAll() {
-        setUp();
-        int id = 9;
+
         posterRepository.removeAll();
         Poster[] actual = posterRepository.findAll();
         Poster[] expected = new Poster[]{};
