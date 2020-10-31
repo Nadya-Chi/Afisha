@@ -12,14 +12,11 @@ public class PosterManager {
 
     public PosterManager() {
     }
-    public PosterManager(int countFilms) {
-        if (countFilms < 0) {
-            return;
-        }
-        this.countFilms = countFilms;
-    }
 
     public PosterManager(int countFilms,PosterRepository repository) {
+        if (countFilms < 0) {
+            countFilms = 0;
+        }
         this.countFilms = countFilms;
         this.repository = repository;
     }
@@ -50,7 +47,7 @@ public class PosterManager {
     public Poster[] getLimit() {
         Poster[] films = repository.findAll();
         int finalCountFilms = Math.min(films.length,countFilms);
-//        Poster[] films = repository.findAll();
+
         Poster[] limit = new Poster[finalCountFilms];
         for (int i = 0; i < finalCountFilms; i++) {
             int index = films.length - i - 1;
