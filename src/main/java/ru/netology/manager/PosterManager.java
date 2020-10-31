@@ -22,11 +22,6 @@ public class PosterManager {
         this.repository = repository;
     }
 
-//    private PosterRepository repository;
-//    public PosterManager(PosterRepository repository) {
-//        this.repository = repository;
-//    }
-
     public void add(Poster film) {
         repository.save(film);
     }
