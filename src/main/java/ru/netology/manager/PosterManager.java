@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 public class PosterManager {
 
     private Poster[] films = new Poster[0];
+    private PosterRepository repository;
     private int countFilms = 10;
 
     public PosterManager() {
@@ -21,10 +22,10 @@ public class PosterManager {
         this.repository = repository;
     }
 
-    private PosterRepository repository;
-    public PosterManager(PosterRepository repository) {
-        this.repository = repository;
-    }
+//    private PosterRepository repository;
+//    public PosterManager(PosterRepository repository) {
+//        this.repository = repository;
+//    }
 
     public void add(Poster film) {
         repository.save(film);
