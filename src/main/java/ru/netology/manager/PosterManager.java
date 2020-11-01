@@ -18,12 +18,11 @@ public class PosterManager {
     }
 
     public void add(Poster film) {
-//        создаем новый массив размером на единицу больше
         int length = films.length + 1;
         Poster[] tmp = new Poster[length];
-//        копируем поэлементно itar
+
         System.arraycopy(films, 0, tmp, 0, films.length);
-//        кладем наш элемент последним
+
         int lastIndex = tmp.length - 1;
         tmp[lastIndex] = film;
         films = tmp;
@@ -39,7 +38,6 @@ public class PosterManager {
                 index++;
             }
         }
-//        меняем наши элементы
         films = tmp;
     }
 
