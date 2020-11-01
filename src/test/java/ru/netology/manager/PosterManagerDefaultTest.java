@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
-public class PosterManagerTestFalse {
+public class PosterManagerDefaultTest {
 
     @Mock
     private PosterRepository repository;
@@ -49,7 +49,22 @@ public class PosterManagerTestFalse {
     }
 
     @Test
-    public void getAllFilmFalse() {
+    public void shouldNotRemoveIfNotExists() {
+        int id = 11;
+        Poster[] returned = new Poster[] {first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth};
+        doReturn(returned).when(repository).findAll();
+        doNothing().when(repository).removeById(id);
+        posterManager.removeById(id);
+
+        Poster[] actual = posterManager.getLimit();
+        Poster[] expected = new Poster[] {tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second,first};
+
+        assertArrayEquals(expected,actual);
+        verify(repository).removeById(id);
+    }
+
+    @Test
+    public void getAllFilmDefault11() {
         Poster[] returned = new Poster[] {first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth};
         doReturn(returned).when(repository).findAll();
 
@@ -60,7 +75,7 @@ public class PosterManagerTestFalse {
     }
 
     @Test
-    public void getAllFilmFalse20() {
+    public void getAllFilmDefault20() {
         PosterManager posterManager = new PosterManager(20,repository);
         Poster[] returned = new Poster[] {first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth};
         doReturn(returned).when(repository).findAll();
@@ -72,7 +87,7 @@ public class PosterManagerTestFalse {
     }
 
     @Test
-    public void getAllFilmFalse5() {
+    public void getAllFilmDefaultLess0() {
         PosterManager posterManager = new PosterManager(-5,repository);
         Poster[] returned = new Poster[] {};
         doReturn(returned).when(repository).findAll();
