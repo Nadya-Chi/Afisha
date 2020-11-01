@@ -60,21 +60,6 @@ public class PosterManagerTest {
         verify(repository).removeById(id);
     }
 
-//    @Test
-//    public void shouldNotRemoveIfNotExists() {
-//        int id = 11;
-//        Poster[] returned = new Poster[] {first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth};
-//        doReturn(returned).when(repository).findAll();
-//        doNothing().when(repository).removeById(id);
-//        posterManager.removeById(id);
-//
-//        Poster[] actual = posterManager.getLimit();
-//        Poster[] expected = new Poster[] {tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second,first};
-//
-//        assertArrayEquals(expected,actual);
-//        verify(repository).removeById(id);
-//    }
-
     @Test
     public void addFilm() {
         Poster[] returned = new Poster[] {first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth};
