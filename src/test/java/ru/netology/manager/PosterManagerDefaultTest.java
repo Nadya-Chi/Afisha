@@ -36,7 +36,7 @@ public class PosterManagerDefaultTest {
     }
 
     @Test
-    public void getAllFilmFalse() {
+    public void getAllFilmDefault() {
 
         Poster[] actual = manager.getLimit();
         Poster[] expected = new Poster[] {eleventh,tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second};
@@ -45,7 +45,7 @@ public class PosterManagerDefaultTest {
     }
 
     @Test
-    public void getAllFilmFalse20() {
+    public void getAllFilmDefault20() {
         manager = new PosterManager(20);
         setUp();
         Poster[] actual = manager.getLimit();
@@ -55,7 +55,7 @@ public class PosterManagerDefaultTest {
     }
 
     @Test
-    public void getAllFilmFalse5() {
+    public void getAllFilmDefaultLess0() {
         manager = new PosterManager(-5);
         setUp();
         Poster[] actual = manager.getLimit();
