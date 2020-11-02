@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
-public class PosterManagerDefaultTest {
+public class PosterManagerDefaultLengthTest {
 
     @Mock
     private PosterRepository repository;
