@@ -6,7 +6,7 @@ import ru.netology.domain.Poster;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class PosterManagerTest {
+public class PosterManagerDefaultLengthTest {
     private PosterManager manager = new PosterManager();
     private Poster first = new Poster(1,1,"first",0,1);
     private Poster second = new Poster(2,2,"second",0,1);
@@ -18,6 +18,7 @@ public class PosterManagerTest {
     private Poster eighth = new Poster(8,8,"eighth",0,1);
     private Poster ninth = new Poster(9,9,"ninth",0,1);
     private Poster tenth = new Poster(10,10,"tenth",0,1);
+    private Poster eleventh = new Poster(11,11,"eleventh",0,1);
 
     @BeforeEach
     public void setUp() {
@@ -31,42 +32,31 @@ public class PosterManagerTest {
         manager.add(eighth);
         manager.add(ninth);
         manager.add(tenth);
+        manager.add(eleventh);
     }
 
     @Test
-    public void shouldRemoveIfExists() {
-        int id = 1;
-        manager.removeById(id);
+    public void getAllFilmDefault() {
 
         Poster[] actual = manager.getLimit();
-        Poster[] expected = new Poster[] {tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second};
+        Poster[] expected = new Poster[] {eleventh,tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second};
 
         assertArrayEquals(expected,actual);
     }
 
     @Test
-    public void addFilm() {
-
-        Poster[] actual = manager.getLimit();
-        Poster[] expected = new Poster[] {tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second,first};
-
-        assertArrayEquals(expected,actual);
-    }
-
-    @Test
-    public void addFilm5() {
-        manager = new PosterManager(5);
+    public void getAllFilmDefault20() {
+        manager = new PosterManager(20);
         setUp();
         Poster[] actual = manager.getLimit();
-        Poster[] expected = new Poster[] {tenth,ninth,eighth,seventh,sixth};
+        Poster[] expected = new Poster[] {eleventh,tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second,first};
 
         assertArrayEquals(expected,actual);
-
     }
 
     @Test
-    public void addFilm0() {
-        manager = new PosterManager(0);
+    public void getAllFilmDefaultLess0() {
+        manager = new PosterManager(-5);
         setUp();
         Poster[] actual = manager.getLimit();
         Poster[] expected = new Poster[] {};
