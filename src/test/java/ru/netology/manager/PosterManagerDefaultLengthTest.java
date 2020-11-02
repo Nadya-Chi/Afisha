@@ -6,7 +6,7 @@ import ru.netology.domain.Poster;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class PosterManagerDefaultTest {
+public class PosterManagerDefaultLengthTest {
     private PosterManager manager = new PosterManager();
     private Poster first = new Poster(1,1,"first",0,1);
     private Poster second = new Poster(2,2,"second",0,1);
