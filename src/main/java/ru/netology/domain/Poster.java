@@ -13,5 +13,4 @@ public class Poster {
     private String productName;
     private int productPrice;
     private int count;
-
 }
