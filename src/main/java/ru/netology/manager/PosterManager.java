@@ -29,10 +29,8 @@ public class PosterManager {
 
     public Poster[] getLimit() {
         Poster[] films = repository.findAll();
-        if (countFilms < 0) {
-            countFilms = 0;
-        }
-        int finalCountFilms = Math.min(films.length,countFilms);
+        int tmpCount = Math.max(countFilms, 0);
+        int finalCountFilms = Math.min(films.length,tmpCount);
 
         Poster[] limit = new Poster[finalCountFilms];
         for (int i = 0; i < finalCountFilms; i++) {

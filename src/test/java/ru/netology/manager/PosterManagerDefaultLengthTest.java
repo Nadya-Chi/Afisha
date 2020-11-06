@@ -64,17 +64,6 @@ public class PosterManagerDefaultLengthTest {
     }
 
     @Test
-    public void getAllFilmDefault11() {
-        Poster[] returned = new Poster[] {first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth};
-        doReturn(returned).when(repository).findAll();
-
-        Poster[] actual = posterManager.getLimit();
-        Poster[] expected = new Poster[] {tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second,first};
-
-        assertArrayEquals(expected,actual);
-    }
-
-    @Test
     public void getAllFilmDefault20() {
         PosterManager posterManager = new PosterManager(20,repository);
         Poster[] returned = new Poster[] {first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth};
